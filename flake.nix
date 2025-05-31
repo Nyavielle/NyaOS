@@ -1,5 +1,5 @@
 {
-  description = "My personal configuration for NixOS";
+  description = "NyaOS";
 
   inputs = {
   
@@ -24,18 +24,17 @@
   let
   
     user = "Nyavielle";
-    hostname = "NyaOS";
     
     system = "x86_64-linux";
     stateVersion = "25.05";
 
   in {
   
-    nixosConfigurations = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.NyaOS = nixpkgs.lib.nixosSystem {
     
       system = system;
 
-      specialArgs = { inherit user hostname stateVersion; };
+      specialArgs = { inherit inputs user stateVersion; };
 
       modules = [
         ./configuration.nix
@@ -46,7 +45,7 @@
           home-manager.useUserPackages = true;
           home-manager.users.${user} = ./home-manager/home.nix;
 
-          extraSpecialArgs = { inherit user hostname stateVersion; };
+          extraSpecialArgs = { inherit inputs user stateVersion; };
         }
         
       ];
