@@ -24,23 +24,22 @@
     system = "x86_64-linux";
     stateVersion = "25.05";
     timezone = "Europe/Kyiv";
-    args = { inherit inputs user hostname system stateVersion timezone; };
   in
   {
     nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem
     {
       system = system;
-      specialArgs = args;
+      specialArgs = { inherit inputs user hostname system stateVersion timezone; };
       
       modules = [
         ./configuration.nix
 
         home-manager.nixosModules.home-manager
         {
-          extraSpecialArgs = args;
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.${user} = ./home-manager/home.nix;
+          home-manager.extraSpecialArgs = { inherit inputs user hostname system stateVersion timezone; };
         }
       ];
     };
