@@ -40,17 +40,6 @@
 
     # DevOps tools
     git
-    gitlab
-    github-runner
     docker
-    k3s
-    kubectl
-    kubernetes
-    kubernetes-helm
-    terraform
-    jenkins
-    prometheus
-    grafana
-    ansible
   ];
 }

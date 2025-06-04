@@ -32,7 +32,7 @@
       specialArgs = { inherit inputs user hostname system stateVersion timezone; };
       
       modules = [
-        ./configuration.nix
+        ./NyaOS/configuration.nix
 
         home-manager.nixosModules.home-manager
         {
