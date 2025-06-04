@@ -8,6 +8,7 @@
     };
   };
 
+  programs.zsh.enable = true;
   services.getty.autologinUser = user;
   security.sudo.wheelNeedsPassword = false;
 }

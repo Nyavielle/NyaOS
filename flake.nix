@@ -38,7 +38,7 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.${user} = ./home-manager/home.nix;
+          home-manager.users.${user} = ./NyaOS/home-manager/home.nix;
           home-manager.extraSpecialArgs = { inherit inputs user hostname system stateVersion timezone; };
         }
       ];

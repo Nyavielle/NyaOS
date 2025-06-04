@@ -4,6 +4,14 @@
 
   home.packages = with pkgs;
   [
+    # Desktop environment
+    hyprland
+    hyprpaper
+    hypridle
+    hyprlock
+    waybar
+    wofi
+    
     # Desktop programs
     firefox
     bitwarden-desktop
@@ -12,13 +20,13 @@
     steam
     spotify
     zathura
+    zoom-us
 
     # Terminal
     kitty
     neovim
     ranger
     tree
-    git
     curl
     wget
     zip
@@ -29,5 +37,20 @@
     clang
     cargo
     nodejs
+
+    # DevOps tools
+    git
+    gitlab
+    github-runner
+    docker
+    k3s
+    kubectl
+    kubernetes
+    kubernetes-helm
+    terraform
+    jenkins
+    prometheus
+    grafana
+    ansible
   ];
 }
