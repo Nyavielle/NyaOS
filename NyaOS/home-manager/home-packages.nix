@@ -13,6 +13,9 @@
     wofi
     playerctl
     brightnessctl
+    wl-clipboard
+    grim
+    slurp
     
     # Desktop programs
     firefox
@@ -23,7 +26,6 @@
     spotify
     zathura
     zoom-us
-    vscode
 
     # Terminal
     kitty
