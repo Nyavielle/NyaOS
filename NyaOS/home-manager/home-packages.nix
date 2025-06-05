@@ -11,6 +11,8 @@
     hyprlock
     waybar
     wofi
+    playerctl
+    brightnessctl
     
     # Desktop programs
     firefox
@@ -21,6 +23,7 @@
     spotify
     zathura
     zoom-us
+    vscode
 
     # Terminal
     kitty
