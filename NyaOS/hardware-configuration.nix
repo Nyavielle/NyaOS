@@ -8,22 +8,35 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/b0e2af22-5d20-44e3-898e-af484c2a9163";
-      fsType = "btrfs";
+    { device = "zroot/root";
+      fsType = "zfs";
     };
 
-  boot.initrd.luks.devices."crypted".device = "/dev/disk/by-uuid/fbf08770-5ec2-4eb8-9c7e-4ecebe15d349";
-
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/8526-D8F7";
+    { device = "/dev/disk/by-uuid/EA96-8A6F";
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
+    };
+
+  fileSystems."/home" =
+    { device = "zroot/root/home";
+      fsType = "zfs";
+    };
+
+  fileSystems."/nix" =
+    { device = "zroot/root/nix";
+      fsType = "zfs";
+    };
+
+  fileSystems."/root" =
+    { device = "zroot/root/root";
+      fsType = "zfs";
     };
 
   swapDevices = [ ];
@@ -33,7 +46,7 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlan0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp1s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
