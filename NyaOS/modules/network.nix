@@ -1,7 +1,6 @@
 { hostname, ... }:
 {
   networking.hostName = hostname;
-  networking.hostId = "3f1a9b27";
 
   networking.wireless.iwd.enable = true;
 

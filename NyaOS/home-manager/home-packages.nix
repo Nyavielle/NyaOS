@@ -26,6 +26,7 @@
     spotify
     zathura
     zoom-us
+    mpv
 
     # Terminal
     kitty
@@ -36,6 +37,7 @@
     wget
     zip
     unzip
+    yt-dlp
 
     # Compilers
     python3Full

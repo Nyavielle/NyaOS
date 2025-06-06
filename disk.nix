@@ -1,81 +1,51 @@
 {
   disko.devices = {
     disk = {
-      root = {
+      main = {
         type = "disk";
         device = "/dev/nvme0n1";
         content = {
           type = "gpt";
           partitions = {
             ESP = {
-              size = "1G";
+              size = "512M";
               type = "EF00";
               content = {
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
-                mountOptions = [ "nofail" "umask=0077" ];
+                mountOptions = [ "umask=0077" ];
               };
             };
-            zfs = {
+            luks = {
               size = "100%";
               content = {
-                type = "zfs";
-                pool = "zroot";
+                type = "luks";
+                name = "crypted";
+                settings = {
+                  allowDiscards = true;
+                };
+                content = {
+                  type = "btrfs";
+                  extraArgs = [ "-f" ];
+                  subvolumes = {
+                    "/root" = {
+                      mountpoint = "/";
+                      mountOptions = [
+                        "comperss=zstd"
+                        "space_cache=v2"
+                        "discard=async"
+                        "noatime"
+                        "ssd"
+                      ];
+                    };
+                  };
+                };
               };
             };
-          };
-        };
-      };
-    };
-
-    zpool = {
-      zroot = {
-        type = "zpool";
-        options.ashift = "12";
-        rootFsOptions = {
-          mountpoint = "none";
-          canmount = "off";
-          compression = "zstd";
-          acltype = "posixacl";
-          xattr = "sa";
-          relatime = "on";
-          dnodesize = "auto";
-          normalization = "formD";
-          "com.sun:auto-snapshot" = "true";
-        };
-
-        datasets = {
-          "root" = {
-            type = "zfs_fs";
-            mountpoint = "/";
-            options = {
-              canmount = "noauto";
-              encryption = "aes-256-gcm";
-              keyformat = "passphrase";
-              keylocation = "prompt";
-            };
-          };
-
-          "root/nix" = {
-            type = "zfs_fs";
-            mountpoint = "/nix";
-          };
-
-          "root/home" = {
-            type = "zfs_fs";
-            mountpoint = "/home";
-            options."com.sun:auto-snapshot" = "true";
-          };
-
-          "root/root" = {
-            type = "zfs_fs";
-            mountpoint = "/root";
-            options."com.sun:auto-snapshot" = "false";
           };
         };
       };
     };
   };
 }
-
